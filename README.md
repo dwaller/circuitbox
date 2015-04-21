@@ -75,12 +75,6 @@ Circuitbox.circuit(:yammer, {
 })
 ```
 
-## Monitoring & Statistics
-
-You can also run `rake circuits:stats SERVICE={service_name}` to see successes, failures and opened circuits.
-Add `PARTITION={partition_key}` to see the circuit for a particular partition.
-The stats are aggregated into 1 minute intervals.
-
 ## Notifications
 
 circuitbox use ActiveSupport Notifications.
@@ -208,6 +202,7 @@ c.use Circuitbox::FaradayMiddleware, open_circuit: lambda { |response| response.
 ### version next
 - [Documentation fix](https://github.com/yammer/circuitbox/pull/29) [chiefcll](https://github.com/chiefcll)
 - [Faraday middleware fix](https://github.com/yammer/circuitbox/pull/30) [chiefcll](https://github.com/chiefcll)
+- [Remove stats store](https://github.com/yammer/circuitbox/pull/25) [yarmand](https://github.com/yarmand) this is no longer needed as we send notifications on changes which can be monitored externally
 
 ### v0.10
 - configuration option for faraday middleware for what should be considered to open the circuit [enrico-scalavio](https://github.com/enrico-scalavino)
