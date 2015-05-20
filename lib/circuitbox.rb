@@ -2,6 +2,7 @@ require 'singleton'
 require 'active_support'
 require 'logger'
 require 'timeout'
+require 'moneta'
 
 require 'circuitbox/version'
 require 'circuitbox/memcache_store'
@@ -35,7 +36,7 @@ class Circuitbox
   end
 
   def self.circuit_store
-    self.instance.circuit_store ||= ActiveSupport::Cache::MemoryStore.new
+    self.instance.circuit_store ||= Moneta.new(:Memory)
   end
 
   def self.circuit_store=(store)

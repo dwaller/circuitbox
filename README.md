@@ -57,6 +57,10 @@ class ExampleServiceClient
       # number of requests within 1 minute before it calculates error rates
       volume_threshold: 10,
 
+      # the store you want to use to save the circuit state so it can be
+      # tracked, this needs to be Moneta compatible, and support increment
+      cache: Moneta.new(:Memory)
+
       # exceeding this rate will open the circuit
       error_threshold:  50,
 
@@ -74,6 +78,19 @@ Circuitbox.circuit(:yammer, {
   sleep_window: Proc.new { Configuration.get(:sleep_window) }
 })
 ```
+
+## Circuit Store (:cache)
+
+Holds all the relevant data to trip the circuit if a given number of requests
+fail in a specified period of time. The store is based on
+[Moneta](https://github.com/minad/moneta) so there are a lot of stores to choose
+from. There are some pre-requisits they need to satisfy so:
+
+- Need to support increment, this is true for most but not all available stores.
+- Need to support concurrent access if you share them. For example sharing a
+  KyotoCabinet store across process fails because the store is single writer
+  multiple readers, and all circuits sharing the store need to be able to write.
+
 
 ## Monitoring & Statistics
 

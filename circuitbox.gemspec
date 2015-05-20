@@ -28,9 +28,11 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "mocha"
   spec.add_development_dependency "typhoeus"
   spec.add_development_dependency "timecop"
+  spec.add_development_dependency "localmemcache"
   spec.add_development_dependency "faraday"
   spec.add_development_dependency "logger"
   spec.add_development_dependency "bundler-gem_version_tasks"
 
   spec.add_dependency "activesupport"
+  spec.add_dependency "moneta"
 end
